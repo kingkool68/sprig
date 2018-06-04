@@ -1,0 +1,14 @@
+{
+    "name": "kingkool68/sprig",
+    "description": "A minimal version of Twig for templating",
+    "type": "wordpress-plugin",
+    "require": {
+        "twig/twig": "^2.4"
+    },
+    "authors": [
+        {
+            "name": "Russell Heimlich",
+            "email": "kingkool68@gmail.com"
+        }
+    ]
+}
