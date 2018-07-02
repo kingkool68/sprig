@@ -2,7 +2,7 @@
 /*
 Plugin Name: Sprig
 Description: Minimal Twig template engine setup.
-Plugin URI: http://timber.upstatement.com
+Plugin URI: https://github.com/kingkool68/sprig
 Author: Russell Heimlich
 Version: 0.0.1
 Author URI: https://russellheimlich.com
