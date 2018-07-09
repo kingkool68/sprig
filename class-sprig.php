@@ -75,13 +75,21 @@ class Sprig {
 
 	public function filter_sprig_twig_default_filters( $filters = array() ) {
 		$filters['esc_attr'] = 'esc_attr';
+		$filters['esc_html'] = 'esc_html';
+		$filters['esc_url'] = 'esc_url';
+		$filters['esc_js'] = 'esc_js';
+		$filters['esc_textarea'] = 'esc_textarea';
+		$filters['tag_escape'] = 'tag_escape';
+		$filters['sanitize_email'] = 'sanitize_email';
+		$filters['sanitize_html_class'] = 'sanitize_html_class';
+		$filters['antispambot'] = 'antispambot';
 		return $filters;
 	}
 
 	public function filter_sprig_twig_default_functions( $functions = array() ) {
 		$functions['checked'] = 'checked';
-		$functions['selected'] = 'selected',
-		$functins['disabled'] = 'disabled'
+		$functions['selected'] = 'selected';
+		$functins['disabled'] = 'disabled';
 		return $functions;
 	}
 
