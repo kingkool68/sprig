@@ -11,7 +11,6 @@ class Sprig {
 		static $instance = null;
 		if ( null === $instance ) {
 			$instance = new static();
-			$instance->setup_twig();
 			$instance->setup_actions();
 			$instance->setup_filters();
 		}
@@ -20,10 +19,39 @@ class Sprig {
 
 	public function  __construct() {}
 
+	public function setup_actions() {
+		add_action( 'init', [ $this, 'action_init' ] );
+	}
+
+	public function action_init() {
+		$this->setup_twig();
+
+		// Add custom filters to Twig
+		// See https://twig.symfony.com/doc/2.x/advanced.html#filters
+		$twig_filters = apply_filters( 'sprig/twig/filters', array() );
+		foreach ( $twig_filters as $name => $filter_callback ) {
+			if ( is_callable( $filter_callback ) ) {
+				self::$twig->addFilter( new \Twig_SimpleFilter( $name, $filter_callback ) );
+			}
+		}
+
+		// Add custom functions to Twig
+		// See https://twig.symfony.com/doc/2.x/advanced.html#functions
+		$twig_functions = apply_filters( 'sprig/twig/functions', array() );
+		foreach ( $twig_functions as $name => $function_callback ) {
+			if ( is_callable( $function_callback ) ) {
+				self::$twig->addFunction( new \Twig_SimpleFunction( $name, $function_callback ) );
+			}
+		}
+
+		// Modify Twig itself
+		// See https://twig.symfony.com/doc/2.x/advanced.html#extending-twig
+		self::$twig = apply_filters( 'sprig/twig', self::$twig );
+	}
+
 	public function setup_twig() {
 		$open_basedir = ini_get( 'open_basedir' );
 		$paths = array_merge( $this->get_template_locations(), array( $open_basedir ? ABSPATH : '/' ) );
-		$paths = apply_filters( 'sprig/paths', $paths );
 		$rootPath = '/';
 		if ( $open_basedir ) {
 			$rootPath = null;
@@ -38,34 +66,6 @@ class Sprig {
 			$twig->addExtension( new \Twig_Extension_Debug() );
 		}
 		self::$twig = $twig;
-	}
-
-	public function setup_actions() {
-		add_action( 'init', [ $this, 'action_init' ] );
-	}
-
-	public function action_init() {
-		// Add custom filters to Twig
-		// See https://twig.symfony.com/doc/2.x/advanced.html#filters
-		$twig_filters = apply_filters( 'sprig/twig/filters', array() );
-		foreach ( $twig_filters as $name => $filter_callback ) {
-			if ( is_callable( $filter_callback ) ) {
-				self::$twig->addFilter( new Twig_SimpleFilter( $name, $filter_callback ) );
-			}
-		}
-
-		// Add custom functions to Twig
-		// See https://twig.symfony.com/doc/2.x/advanced.html#functions
-		$twig_functions = apply_filters( 'sprig/twig/functions', array() );
-		foreach ( $twig_functions as $name => $function_callback ) {
-			if ( is_callable( $function_callback ) ) {
-				self::$twig->addFunction( new Twig_SimpleFunction( $name, $function_callback ) );
-			}
-		}
-
-		// Modify Twig itself
-		// See https://twig.symfony.com/doc/2.x/advanced.html#extending-twig
-		self::$twig = apply_filters( 'sprig/twig', self::$twig );
 	}
 
 	public function setup_filters() {
@@ -97,6 +97,7 @@ class Sprig {
 		$theme_locations = array();
 		$theme_dirs = apply_filters( 'sprig/theme_dirs', array( 'views', 'twig' ) );
 		$roots = array( get_stylesheet_directory(), get_template_directory() );
+		$roots = apply_filters( 'sprig/roots', $roots );
 		$roots = array_map( 'realpath', $roots );
 		$roots = array_unique( $roots );
 		foreach ( $roots as $root ) {
