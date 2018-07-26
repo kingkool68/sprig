@@ -54,7 +54,7 @@ class Sprig {
 			}
 		}
 
-		// Add custom filters to Twig
+		// Add custom functions to Twig
 		// See https://twig.symfony.com/doc/2.x/advanced.html#functions
 		$twig_functions = apply_filters( 'sprig/twig/functions', array() );
 		foreach ( $twig_functions as $name => $function_callback ) {
