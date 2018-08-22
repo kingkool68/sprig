@@ -87,11 +87,13 @@ class Sprig {
 	}
 
 	public function filter_sprig_twig_default_functions( $functions = array() ) {
-		$functions['checked']   = 'checked';
-		$functions['selected']  = 'selected';
-		$functins['disabled']   = 'disabled';
-		$functions['wp_head']   = 'wp_head';
-		$functions['wp_footer'] = 'wp_footer';
+		$functions['checked']    = 'checked';
+		$functions['selected']   = 'selected';
+		$functins['disabled']    = 'disabled';
+		$functions['wp_head']    = 'wp_head';
+		$functions['wp_footer']  = 'wp_footer';
+		$functions['get_header'] = 'get_header';
+		$functions['get_footer'] = 'get_footer';
 		return $functions;
 	}
 
