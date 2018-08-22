@@ -87,9 +87,11 @@ class Sprig {
 	}
 
 	public function filter_sprig_twig_default_functions( $functions = array() ) {
-		$functions['checked']  = 'checked';
-		$functions['selected'] = 'selected';
-		$functins['disabled']  = 'disabled';
+		$functions['checked']   = 'checked';
+		$functions['selected']  = 'selected';
+		$functins['disabled']   = 'disabled';
+		$functions['wp_head']   = 'wp_head';
+		$functions['wp_footer'] = 'wp_footer';
 		return $functions;
 	}
 
