@@ -83,6 +83,7 @@ class Sprig {
 		$filters['sanitize_email']      = 'sanitize_email';
 		$filters['sanitize_html_class'] = 'sanitize_html_class';
 		$filters['antispambot']         = 'antispambot';
+		$filters['wptexturize']         = 'wptexturize';
 		return $filters;
 	}
 
