@@ -2,6 +2,9 @@
 
 class Sprig {
 
+	/**
+	 * An instance of Twig
+	 */
 	static $twig;
 
 	/**
@@ -17,12 +20,21 @@ class Sprig {
 		return $instance;
 	}
 
+	/**
+	 * Empty constructor since we don't allow it
+	 */
 	public function  __construct() {}
 
+	/**
+	 * Hook into WordPress via actions
+	 */
 	public function setup_actions() {
 		add_action( 'init', [ $this, 'action_init' ] );
 	}
 
+	/**
+	 * Setup Twig and allow for other customizations
+	 */
 	public function action_init() {
 		$this->setup_twig();
 
@@ -49,6 +61,9 @@ class Sprig {
 		self::$twig = apply_filters( 'sprig/twig', self::$twig );
 	}
 
+	/**
+	 * Setup Twig and define locations to look for templates
+	 */
 	public function setup_twig() {
 		$open_basedir = ini_get( 'open_basedir' );
 		$paths = array_merge( $this->get_template_locations(), array( $open_basedir ? ABSPATH : '/' ) );
@@ -68,11 +83,21 @@ class Sprig {
 		self::$twig = $twig;
 	}
 
+	/**
+	 * Hook into WordPress via filters
+	 */
 	public function setup_filters() {
 		add_filter( 'sprig/twig/filters', [ $this, 'filter_sprig_twig_default_filters' ] );
 		add_filter( 'sprig/twig/functions', [ $this, 'filter_sprig_twig_default_functions' ] );
 	}
 
+	/**
+	 * Setup default filters for use in .twig files
+	 * These are mostly escaping functions
+	 *
+	 * @param  array  $filters List of Twig filters
+	 * @return array           Modified list of Twig filters to make avaialble
+	 */
 	public function filter_sprig_twig_default_filters( $filters = array() ) {
 		$filters['esc_attr']            = 'esc_attr';
 		$filters['esc_html']            = 'esc_html';
@@ -88,6 +113,12 @@ class Sprig {
 		return $filters;
 	}
 
+	/**
+	 * Setup default functions for use in .twig files
+	 *
+	 * @param  array  $functions List of Twig functions
+	 * @return array           Modified list of Twig functions to make avaialble
+	 */
 	public function filter_sprig_twig_default_functions( $functions = array() ) {
 		$functions['checked']    = 'checked';
 		$functions['selected']   = 'selected';
@@ -100,6 +131,11 @@ class Sprig {
 		return $functions;
 	}
 
+	/**
+	 * Get paths of directories Twig should look for template files
+	 *
+	 * @return array List of locations for Twig to look for templates
+	 */
 	public function get_template_locations() {
 		$theme_locations = array();
 		$theme_dirs = apply_filters( 'sprig/theme_dirs', array( 'views', 'twig' ) );
@@ -123,15 +159,60 @@ class Sprig {
 		return $theme_locations;
 	}
 
-	public static function render( $filenames, $data = array() ) {
+	/**
+	 * Given a list of file names find the first template
+	 * that exists and can be used for rendering
+	 *
+	 * @param  array  $filenames List of template file names
+	 * @return string|false      Name of first template found or false if no templates are found
+	 */
+	public static function choose_template( $filenames = array() ) {
+		$loader = self::$twig->getLoader();
+		foreach ( $filenames as $filename ) {
+			if ( $loader->exists( $filename ) ) {
+				return $filename;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Get the full path of the chosen template file
+	 *
+	 * @param  array  $filenames List of template file names
+	 * @return string            Path of the chosen template file
+	 */
+	public static function get_template_path( $filenames = array() ) {
+		$template_file_name = self::choose_template( $filenames );
+		if ( empty( $template_file_name ) ) {
+			return '';
+		}
+		$loader = self::$twig->getLoader();
+		return $loader->getSourceContext( $template_file_name )->getPath();
+	}
+
+	/**
+	 * Render a template using the provided data
+	 *
+	 * @param  array $filenames List of template file names
+	 * @param  array $data      Data to use when rendering the template
+	 * @return string           Rendered template
+	 */
+	public static function render( $filenames = array(), $data = array() ) {
 		if ( ! is_array( $filenames ) ) {
 			$filenames = array( $filenames );
 		}
-		$output = self::$twig->render( $filenames[0], $data );
-		return $output;
+		$template_file_name = self::choose_template( $filenames );
+		return self::$twig->render( $template_file_name, $data );
 	}
 
-	public static function echo( $filenames, $data = array() ) {
+	/**
+	 * Helper method to echo the rendered output
+	 *
+	 * @param  array $filenames List of template file names
+	 * @param  array $data      Data to use when rendering the template
+	 */
+	public static function out( $filenames = array(), $data = array() ) {
 		echo self::render( $filenames, $data );
 	}
 }
