@@ -3,7 +3,7 @@
     "description": "A minimal version of Twig for templating",
     "type": "wordpress-plugin",
     "require": {
-        "twig/twig": "^2.4"
+        "twig/twig": "~1.0"
     },
     "authors": [
         {
