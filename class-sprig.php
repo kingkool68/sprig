@@ -215,6 +215,22 @@ class Sprig {
 	public static function out( $filenames = array(), $data = array() ) {
 		echo self::render( $filenames, $data );
 	}
+
+	/**
+	 * Trigger an action and return the captured output buffer
+	 *
+	 * @param  string $action_name The name of the action to be executed
+	 * @param  mixed $arg          Additional arguments which are passed on to the functions hooked to the action
+	 * @return string              Output of the triggered action
+	 */
+	public static function do_action( $action_name = '', $arg = '' ) {
+		if ( empty( $action_name ) ) {
+			return;
+		}
+		ob_start();
+		call_user_func_array( 'do_action', func_get_args() );
+		return ob_get_clean();
+	}
 }
 
 // Kick things off
