@@ -128,6 +128,7 @@ class Sprig {
 		$functions['body_class'] = 'body_class';
 		$functions['get_header'] = 'get_header';
 		$functions['get_footer'] = 'get_footer';
+		$functions['wp_title']   = 'wp_title';
 		return $functions;
 	}
 
