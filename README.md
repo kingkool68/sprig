@@ -53,6 +53,9 @@ Sprig::out( 'example.twig', $context );
 </p>
 ```
 
+## Demo Theme
+
+I've put together a [simple demo theme](https://github.com/kingkool68/sprig-demo-theme) to show how Sprig can be used within a WordPress theme.
 
 ## Twig Filters
 
