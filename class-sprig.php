@@ -1,16 +1,26 @@
 <?php
+/**
+ * The main Sprig class
+ *
+ * @package Sprig
+ */
 
+/**
+ * Sprig for minimal Twig templating in WordPress
+ */
 class Sprig {
 
 	/**
 	 * An instance of Twig
+	 *
+	 * @var [type]
 	 */
-	static $twig;
+	public static $twig;
 
 	/**
 	 * Get an instance of this class
 	 */
-	static function get_instance() {
+	public static function get_instance() {
 		static $instance = null;
 		if ( null === $instance ) {
 			$instance = new static();
@@ -23,13 +33,13 @@ class Sprig {
 	/**
 	 * Empty constructor since we don't allow it
 	 */
-	public function  __construct() {}
+	public function __construct() {}
 
 	/**
 	 * Hook into WordPress via actions
 	 */
 	public function setup_actions() {
-		add_action( 'init', [ $this, 'action_init' ] );
+		add_action( 'init', array( $this, 'action_init' ) );
 	}
 
 	/**
@@ -39,7 +49,7 @@ class Sprig {
 		$this->setup_twig();
 
 		// Add custom filters to Twig
-		// See https://twig.symfony.com/doc/2.x/advanced.html#filters
+		// See https://twig.symfony.com/doc/1.x/advanced.html#filters
 		$twig_filters = apply_filters( 'sprig/twig/filters', array() );
 		foreach ( $twig_filters as $name => $filter_callback ) {
 			if ( is_callable( $filter_callback ) ) {
@@ -48,7 +58,7 @@ class Sprig {
 		}
 
 		// Add custom functions to Twig
-		// See https://twig.symfony.com/doc/2.x/advanced.html#functions
+		// See https://twig.symfony.com/doc/1.x/advanced.html#functions
 		$twig_functions = apply_filters( 'sprig/twig/functions', array() );
 		foreach ( $twig_functions as $name => $function_callback ) {
 			if ( is_callable( $function_callback ) ) {
@@ -57,7 +67,7 @@ class Sprig {
 		}
 
 		// Modify Twig itself
-		// See https://twig.symfony.com/doc/2.x/advanced.html#extending-twig
+		// See https://twig.symfony.com/doc/1.x/advanced.html#extending-twig
 		self::$twig = apply_filters( 'sprig/twig', self::$twig );
 	}
 
@@ -66,17 +76,20 @@ class Sprig {
 	 */
 	public function setup_twig() {
 		$open_basedir = ini_get( 'open_basedir' );
-		$paths = array_merge( $this->get_template_locations(), array( $open_basedir ? ABSPATH : '/' ) );
-		$rootPath = '/';
+		$paths        = array_merge( $this->get_template_locations(), array( $open_basedir ? ABSPATH : '/' ) );
+		$root_path    = '/';
 		if ( $open_basedir ) {
-			$rootPath = null;
+			$root_path = null;
 		}
-		$twig_loader = new \Twig_Loader_Filesystem( $paths, $rootPath );
+		$twig_loader = new \Twig_Loader_Filesystem( $paths, $root_path );
 		$twig_loader = apply_filters( 'sprig/twig_loader', $twig_loader );
-		$twig = new \Twig_Environment( $twig_loader, array(
-			'debug'      => WP_DEBUG,
-			'autoescape' => false,
-		) );
+		$twig        = new \Twig_Environment(
+			$twig_loader,
+			array(
+				'debug'      => WP_DEBUG,
+				'autoescape' => false,
+			)
+		);
 		if ( WP_DEBUG ) {
 			$twig->addExtension( new \Twig_Extension_Debug() );
 		}
@@ -87,15 +100,15 @@ class Sprig {
 	 * Hook into WordPress via filters
 	 */
 	public function setup_filters() {
-		add_filter( 'sprig/twig/filters', [ $this, 'filter_sprig_twig_default_filters' ] );
-		add_filter( 'sprig/twig/functions', [ $this, 'filter_sprig_twig_default_functions' ] );
+		add_filter( 'sprig/twig/filters', array( $this, 'filter_sprig_twig_default_filters' ) );
+		add_filter( 'sprig/twig/functions', array( $this, 'filter_sprig_twig_default_functions' ) );
 	}
 
 	/**
 	 * Setup default filters for use in .twig files
 	 * These are mostly escaping functions
 	 *
-	 * @param  array  $filters List of Twig filters
+	 * @param  array $filters List of Twig filters.
 	 * @return array           Modified list of Twig filters to make avaialble
 	 */
 	public function filter_sprig_twig_default_filters( $filters = array() ) {
@@ -116,7 +129,7 @@ class Sprig {
 	/**
 	 * Setup default functions for use in .twig files
 	 *
-	 * @param  array  $functions List of Twig functions
+	 * @param  array $functions List of Twig functions.
 	 * @return array           Modified list of Twig functions to make avaialble
 	 */
 	public function filter_sprig_twig_default_functions( $functions = array() ) {
@@ -139,17 +152,17 @@ class Sprig {
 	 */
 	public function get_template_locations() {
 		$theme_locations = array();
-		$theme_dirs = apply_filters( 'sprig/theme_dirs', array( 'views', 'twig' ) );
-		$roots = array( get_stylesheet_directory(), get_template_directory() );
-		$roots = apply_filters( 'sprig/roots', $roots );
-		$roots = array_map( 'realpath', $roots );
-		$roots = array_unique( $roots );
+		$theme_dirs      = apply_filters( 'sprig/theme_dirs', array( 'views', 'twig' ) );
+		$roots           = array( get_stylesheet_directory(), get_template_directory() );
+		$roots           = apply_filters( 'sprig/roots', $roots );
+		$roots           = array_map( 'realpath', $roots );
+		$roots           = array_unique( $roots );
 		foreach ( $roots as $root ) {
 			if ( ! is_dir( $root ) ) {
 				continue;
 			}
 			$theme_locations[] = $root;
-			$root = trailingslashit( $root );
+			$root              = trailingslashit( $root );
 			foreach ( $theme_dirs as $dirname ) {
 				$theme_location = realpath( $root . $dirname );
 				if ( is_dir( $theme_location ) ) {
@@ -164,7 +177,7 @@ class Sprig {
 	 * Given a list of file names find the first template
 	 * that exists and can be used for rendering
 	 *
-	 * @param  array  $filenames List of template file names
+	 * @param  array $filenames List of template file names.
 	 * @return string|false      Name of first template found or false if no templates are found
 	 */
 	public static function choose_template( $filenames = array() ) {
@@ -180,7 +193,7 @@ class Sprig {
 	/**
 	 * Get the full path of the chosen template file
 	 *
-	 * @param  array  $filenames List of template file names
+	 * @param  array $filenames List of template file names.
 	 * @return string            Path of the chosen template file
 	 */
 	public static function get_template_path( $filenames = array() ) {
@@ -195,8 +208,8 @@ class Sprig {
 	/**
 	 * Render a template using the provided data
 	 *
-	 * @param  array $filenames List of template file names
-	 * @param  array $data      Data to use when rendering the template
+	 * @param  array $filenames List of template file names.
+	 * @param  array $data      Data to use when rendering the template.
 	 * @return string           Rendered template
 	 */
 	public static function render( $filenames = array(), $data = array() ) {
@@ -210,8 +223,8 @@ class Sprig {
 	/**
 	 * Helper method to echo the rendered output
 	 *
-	 * @param  array $filenames List of template file names
-	 * @param  array $data      Data to use when rendering the template
+	 * @param  array $filenames List of template file names.
+	 * @param  array $data      Data to use when rendering the template.
 	 */
 	public static function out( $filenames = array(), $data = array() ) {
 		echo self::render( $filenames, $data );
@@ -220,8 +233,8 @@ class Sprig {
 	/**
 	 * Trigger an action and return the captured output buffer
 	 *
-	 * @param  string $action_name The name of the action to be executed
-	 * @param  mixed $arg          Additional arguments which are passed on to the functions hooked to the action
+	 * @param  string $action_name The name of the action to be executed.
+	 * @param  mixed  $arg          Additional arguments which are passed on to the functions hooked to the action.
 	 * @return string              Output of the triggered action
 	 */
 	public static function do_action( $action_name = '', $arg = '' ) {
@@ -234,5 +247,5 @@ class Sprig {
 	}
 }
 
-// Kick things off
+// Kick things off.
 Sprig::get_instance();

@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Sprig
-Description: Minimal Twig template engine setup.
+Description: Minimal Twig template engine setup for WordPress.
 Plugin URI: https://github.com/kingkool68/sprig
 GitHub Plugin URI: kingkool68/sprig
 Author: Russell Heimlich
-Version: 0.0.1
+Version: 1.0.0
 Author URI: https://russellheimlich.com
 */
 
