@@ -3,7 +3,7 @@ _Bare bones Twig templating support for WordPress_
 
 Sprig brings the Twig templating engine to WordPress. Install the plugin and get started separating your HTML from PHP.
 
-Other Twig plugins like [Timber](https://www.upstatement.com/timber/) try to bring lots of WordPress functionality into Twig. Sprig believes in separating PHP from HTML as much as possible. PHP is for gathering and massaging data and Sprig/Twig templates are for rendering HTML using the data passed to it. Keep things simple and only pass data to a template that the template needs to render. 
+Other Twig plugins like [Timber](https://www.upstatement.com/timber/) try to bring lots of WordPress functionality into Twig. Sprig believes in separating PHP from HTML as much as possible. PHP is for gathering and massaging data and Sprig/Twig templates are for rendering HTML using the data passed to it. Keep things simple and only pass data to a template that the template needs to render.
 
 ## Installation
 
@@ -59,7 +59,7 @@ I've put together a [simple demo theme](https://github.com/kingkool68/sprig-demo
 
 ## Twig Filters
 
-Twig filters allow a string to be manipulated in a Twig template. Most of the default filters in Sprig are WordPress' [escaping functions](https://developer.wordpress.org/themes/theme-security/data-sanitization-escaping/#escaping-securing-output) for securing output as late as possible. 
+Twig filters allow a string to be manipulated in a Twig template. Most of the default filters in Sprig are WordPress' [escaping functions](https://developer.wordpress.org/themes/theme-security/data-sanitization-escaping/#escaping-securing-output) for securing output as late as possible.
 
  - [`esc_attr`](https://developer.wordpress.org/reference/functions/esc_attr/)
  - [`esc_html`](https://developer.wordpress.org/reference/functions/esc_html/)
@@ -120,4 +120,4 @@ Sprig offers various WordPress filters to customize its behavior.
  - `sprig/twig/functions` for adding or removing available Twig functions
  - `sprig/roots` for modifying which directories Twig should look for twig templates in
  - `sprig/theme_dirs` for modifying the name of directories to look for Twig templates in (Example: if you want to change the directory from `views` or `twig` to `templates`)
- - `sprig/twig_loader` for modifying the Twig loader environment (see <https://twig.symfony.com/doc/2.x/api.html>)
+ - `sprig/twig_loader` for modifying the Twig loader environment (see <https://twig.symfony.com/doc/1.x/api.html>)
