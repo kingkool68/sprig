@@ -53,7 +53,7 @@ class Sprig {
 		$twig_filters = apply_filters( 'sprig/twig/filters', array() );
 		foreach ( $twig_filters as $name => $filter_callback ) {
 			if ( is_callable( $filter_callback ) ) {
-				self::$twig->addFilter( new \Twig_SimpleFilter( $name, $filter_callback ) );
+				self::$twig->addFilter( new \Twig\TwigFilter( $name, $filter_callback ) );
 			}
 		}
 
@@ -62,7 +62,7 @@ class Sprig {
 		$twig_functions = apply_filters( 'sprig/twig/functions', array() );
 		foreach ( $twig_functions as $name => $function_callback ) {
 			if ( is_callable( $function_callback ) ) {
-				self::$twig->addFunction( new \Twig_SimpleFunction( $name, $function_callback ) );
+				self::$twig->addFunction( new \Twig\TwigFunction( $name, $function_callback ) );
 			}
 		}
 
@@ -81,9 +81,9 @@ class Sprig {
 		if ( $open_basedir ) {
 			$root_path = null;
 		}
-		$twig_loader = new \Twig_Loader_Filesystem( $paths, $root_path );
+		$twig_loader = new \Twig\Loader\FilesystemLoader( $paths, $root_path );
 		$twig_loader = apply_filters( 'sprig/twig_loader', $twig_loader );
-		$twig        = new \Twig_Environment(
+		$twig        = new \Twig\Environment(
 			$twig_loader,
 			array(
 				'debug'      => WP_DEBUG,
@@ -91,7 +91,7 @@ class Sprig {
 			)
 		);
 		if ( WP_DEBUG ) {
-			$twig->addExtension( new \Twig_Extension_Debug() );
+			$twig->addExtension( new \Twig\Extension\DebugExtension() );
 		}
 		self::$twig = $twig;
 	}
