@@ -53,7 +53,7 @@ class Sprig {
 		$twig_filters = apply_filters( 'sprig/twig/filters', array() );
 		foreach ( $twig_filters as $name => $filter_callback ) {
 			if ( is_callable( $filter_callback ) ) {
-				self::$twig->addFilter( new \Twig\TwigFilter( $name, $filter_callback ) );
+				static::$twig->addFilter( new \Twig\TwigFilter( $name, $filter_callback ) );
 			}
 		}
 
@@ -62,13 +62,13 @@ class Sprig {
 		$twig_functions = apply_filters( 'sprig/twig/functions', array() );
 		foreach ( $twig_functions as $name => $function_callback ) {
 			if ( is_callable( $function_callback ) ) {
-				self::$twig->addFunction( new \Twig\TwigFunction( $name, $function_callback ) );
+				static::$twig->addFunction( new \Twig\TwigFunction( $name, $function_callback ) );
 			}
 		}
 
 		// Modify Twig itself
 		// See https://twig.symfony.com/doc/1.x/advanced.html#extending-twig
-		self::$twig = apply_filters( 'sprig/twig', self::$twig );
+		static::$twig = apply_filters( 'sprig/twig', static::$twig );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class Sprig {
 		if ( WP_DEBUG ) {
 			$twig->addExtension( new \Twig\Extension\DebugExtension() );
 		}
-		self::$twig = $twig;
+		static::$twig = $twig;
 	}
 
 	/**
@@ -181,7 +181,7 @@ class Sprig {
 	 * @return string|false      Name of first template found or false if no templates are found
 	 */
 	public static function choose_template( $filenames = array() ) {
-		$loader = self::$twig->getLoader();
+		$loader = static::$twig->getLoader();
 		foreach ( $filenames as $filename ) {
 			if ( $loader->exists( $filename ) ) {
 				return $filename;
@@ -197,11 +197,11 @@ class Sprig {
 	 * @return string            Path of the chosen template file
 	 */
 	public static function get_template_path( $filenames = array() ) {
-		$template_file_name = self::choose_template( $filenames );
+		$template_file_name = static::choose_template( $filenames );
 		if ( empty( $template_file_name ) ) {
 			return '';
 		}
-		$loader = self::$twig->getLoader();
+		$loader = static::$twig->getLoader();
 		return $loader->getSourceContext( $template_file_name )->getPath();
 	}
 
@@ -216,8 +216,8 @@ class Sprig {
 		if ( ! is_array( $filenames ) ) {
 			$filenames = array( $filenames );
 		}
-		$template_file_name = self::choose_template( $filenames );
-		return self::$twig->render( $template_file_name, $data );
+		$template_file_name = static::choose_template( $filenames );
+		return static::$twig->render( $template_file_name, $data );
 	}
 
 	/**
@@ -227,7 +227,7 @@ class Sprig {
 	 * @param  array $data      Data to use when rendering the template.
 	 */
 	public static function out( $filenames = array(), $data = array() ) {
-		echo self::render( $filenames, $data );
+		echo static::render( $filenames, $data );
 	}
 
 	/**
