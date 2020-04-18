@@ -1,14 +1,24 @@
 {
-    "name": "kingkool68/sprig",
-    "description": "A minimal version of Twig for templating",
-    "type": "wordpress-plugin",
-    "require": {
-        "twig/twig": "~1.0"
-    },
-    "authors": [
-        {
-            "name": "Russell Heimlich",
-            "email": "kingkool68@gmail.com"
-        }
-    ]
+  "name": "kingkool68/sprig",
+  "description": "A minimal version of Twig for templating in WordPress",
+  "license": "GPL-2.0-only",
+  "type": "wordpress-plugin",
+  "homepage": "https://github.com/kingkool68/sprig",
+  "readme": "README.md",
+  "support": {
+    "issues": "https://github.com/kingkool68/sprig/issues",
+    "source": "https://github.com/kingkool68/sprig"
+  },
+  "require": {
+    "php": ">=5.5.0",
+    "twig/twig": "~1.0",
+    "composer/installers": "^1.0"
+  },
+  "authors": [
+    {
+      "name": "Russell Heimlich",
+      "email": "kingkool68@gmail.com",
+      "role": "Project Founder"
+    }
+  ]
 }
