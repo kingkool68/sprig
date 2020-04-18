@@ -120,7 +120,7 @@ Sprig offers various WordPress filters to customize its behavior.
  - `sprig/twig/functions` for adding or removing available Twig functions
  - `sprig/roots` for modifying which directories Twig should look for twig templates in
  - `sprig/theme_dirs` for modifying the name of directories to look for Twig templates in (Example: if you want to change the directory from `views` or `twig` to `templates`)
- - `sprig/twig_loader` for modifying the Twig loader environment (see <https://twig.symfony.com/doc/1.x/api.html>)
+ - `sprig/twig_loader` for modifying the Twig loader environment (see <https://twig.symfony.com/doc/2.x/api.html>)
 
  ## PHP Compatibility
 
