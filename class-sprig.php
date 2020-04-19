@@ -13,7 +13,7 @@ class Sprig {
 	/**
 	 * An instance of Twig
 	 *
-	 * @var [type]
+	 * @var Twig\Environment
 	 */
 	public static $twig;
 
@@ -49,7 +49,7 @@ class Sprig {
 		$this->setup_twig();
 
 		// Add custom filters to Twig
-		// See https://twig.symfony.com/doc/2.x/advanced.html#filters
+		// See https://twig.symfony.com/doc/3.x/advanced.html#filters
 		$twig_filters = apply_filters( 'sprig/twig/filters', array() );
 		foreach ( $twig_filters as $name => $filter_callback ) {
 			if ( is_callable( $filter_callback ) ) {
@@ -58,7 +58,7 @@ class Sprig {
 		}
 
 		// Add custom functions to Twig
-		// See https://twig.symfony.com/doc/2.x/advanced.html#functions
+		// See https://twig.symfony.com/doc/3.x/advanced.html#functions
 		$twig_functions = apply_filters( 'sprig/twig/functions', array() );
 		foreach ( $twig_functions as $name => $function_callback ) {
 			if ( is_callable( $function_callback ) ) {
@@ -67,7 +67,7 @@ class Sprig {
 		}
 
 		// Modify Twig itself
-		// See https://twig.symfony.com/doc/2.x/advanced.html#extending-twig
+		// See https://twig.symfony.com/doc/3.x/advanced.html#extending-twig
 		static::$twig = apply_filters( 'sprig/twig', static::$twig );
 	}
 

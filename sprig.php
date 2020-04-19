@@ -5,7 +5,7 @@ Description: Minimal Twig template engine setup for WordPress.
 Plugin URI: https://github.com/kingkool68/sprig
 GitHub Plugin URI: kingkool68/sprig
 Author: Russell Heimlich
-Version: 2.0.0
+Version: 3.0.0
 Author URI: https://russellheimlich.com
 */
 
