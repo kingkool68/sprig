@@ -20,5 +20,10 @@
       "email": "kingkool68@gmail.com",
       "role": "Project Founder"
     }
-  ]
+  ],
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  }
 }
