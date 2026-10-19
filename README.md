@@ -133,6 +133,10 @@ Sprig offers various WordPress filters to customize its behavior.
  - `sprig/theme_dirs` for modifying the name of directories to look for Twig templates in (Example: if you want to change the directory from `views` or `twig` to `templates`)
  - `sprig/twig_loader` for modifying the Twig loader environment (see <https://twig.symfony.com/doc/3.x/api.html>)
 
+## Contributing
+
+Sprig follows the [WordPress Coding Standards](https://github.com/WordPress/WordPress-Coding-Standards). After running `composer install`, check your changes with `composer lint` and auto-fix what can be fixed with `composer lint:fix`.
+
 ## PHP Compatibility
 
 PHP compatibility is dependent on Twig's PHP prerequisites. Use the appropriate branch of Sprig to meet your minimum PHP requirements.
