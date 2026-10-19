@@ -66,6 +66,9 @@ Twig filters allow a string to be manipulated in a Twig template. Most of the de
  - [`esc_url`](https://developer.wordpress.org/reference/functions/esc_url/)
  - [`esc_js`](https://developer.wordpress.org/reference/functions/esc_js/)
  - [`esc_textarea`](https://developer.wordpress.org/reference/functions/esc_textarea/)
+ - [`esc_xml`](https://developer.wordpress.org/reference/functions/esc_xml/)
+ - [`wp_kses`](https://developer.wordpress.org/reference/functions/wp_kses/)
+ - [`wp_kses_data`](https://developer.wordpress.org/reference/functions/wp_kses_data/)
  - [`wp_kses_post`](https://developer.wordpress.org/reference/functions/wp_kses_post/)
  - [`tag_escape`](https://developer.wordpress.org/reference/functions/tag_escape/)
  - [`sanitize_email`](https://developer.wordpress.org/reference/functions/sanitize_email/)
@@ -73,6 +76,12 @@ Twig filters allow a string to be manipulated in a Twig template. Most of the de
  - [`antispambot`](https://developer.wordpress.org/reference/functions/antispambot/)
  - [`wptexturize`](https://developer.wordpress.org/reference/functions/wptexturize/)
  - [`absint`](https://developer.wordpress.org/reference/functions/absint/)
+
+Filters that take extra arguments accept them in parentheses. For example, `wp_kses` needs a list of allowed HTML tags and attributes:
+
+```twig
+{{ content|wp_kses({ 'a': { 'href': true, 'title': true }, 'strong': {} }) }}
+```
 
 Additional Twig filters can be added via the WordPress filter `sprig/twig/filters` and adding a callable function with a key to the array. This filter should be called before the `init` action so Twig filters can be set up properly in time.
 
