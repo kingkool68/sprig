@@ -109,7 +109,7 @@ class Sprig {
 	 * These are mostly escaping functions
 	 *
 	 * @param  array $filters List of Twig filters.
-	 * @return array           Modified list of Twig filters to make avaialble
+	 * @return array           Modified list of Twig filters to make available
 	 */
 	public function filter_sprig_twig_default_filters( $filters = array() ) {
 		$filters['esc_attr']            = 'esc_attr';
@@ -131,7 +131,7 @@ class Sprig {
 	 * Setup default functions for use in .twig files
 	 *
 	 * @param  array $functions List of Twig functions.
-	 * @return array           Modified list of Twig functions to make avaialble
+	 * @return array           Modified list of Twig functions to make available
 	 */
 	public function filter_sprig_twig_default_functions( $functions = array() ) {
 		$functions['checked']    = 'checked';

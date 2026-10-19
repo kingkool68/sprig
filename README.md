@@ -13,7 +13,7 @@ Other Twig plugins like [Timber](https://www.upstatement.com/timber/) try to bri
 
 ## How to Use
 
-Create a directroy in your theme called `views` or `twig` to hold your Twig template files. Render your templates using the following methods passing an array of data to be used by the template.
+Create a directory in your theme called `views` or `twig` to hold your Twig template files. Render your templates using the following methods passing an array of data to be used by the template.
 
  - `Sprig::render()` will render a Twig template using an array of data and return it as a string
  - `Sprig::out()` will `echo` a rendered template
@@ -121,12 +121,14 @@ Sprig offers various WordPress filters to customize its behavior.
  - `sprig/twig/functions` for adding or removing available Twig functions
  - `sprig/roots` for modifying which directories Twig should look for twig templates in
  - `sprig/theme_dirs` for modifying the name of directories to look for Twig templates in (Example: if you want to change the directory from `views` or `twig` to `templates`)
- - `sprig/twig_loader` for modifying the Twig loader environment (see <https://twig.symfony.com/doc/2.x/api.html>)
+ - `sprig/twig_loader` for modifying the Twig loader environment (see <https://twig.symfony.com/doc/3.x/api.html>)
 
- ## PHP Compatibility
+## PHP Compatibility
 
 PHP compatibility is dependent on Twig's PHP prerequisites. Use the appropriate branch of Sprig to meet your minimum PHP requirements.
 
- - [Twig 3.x](https://twig.symfony.com/doc/3.x/intro.html) needs at least PHP 7.2.0 to run, use the Sprig `master` branch.
+ - [Twig 3.x](https://twig.symfony.com/doc/3.x/intro.html) (3.27 or newer) needs at least PHP 8.1 to run, use the Sprig `master` branch.
  - [Twig 2.x](https://twig.symfony.com/doc/2.x/intro.html) needs at least PHP 7.0.0 to run, use the Sprig `2.x` branch.
- - [Twig 1.x](https://twig.symfony.com/doc/1.x/intro.html) needs at least PHP 5.5.0 to run , use the Sprig `1.x` branch.
+ - [Twig 1.x](https://twig.symfony.com/doc/1.x/intro.html) needs at least PHP 5.5.0 to run, use the Sprig `1.x` branch.
+
+**Note:** Twig 1.x and 2.x are no longer maintained and have known security vulnerabilities that will not be fixed. The `1.x` and `2.x` branches are provided for legacy sites only. Upgrade to PHP 8.1+ and the `master` branch if you can.
