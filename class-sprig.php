@@ -48,8 +48,8 @@ class Sprig {
 	public function action_init() {
 		$this->setup_twig();
 
-		// Add custom filters to Twig
-		// See https://twig.symfony.com/doc/3.x/advanced.html#filters
+		// Add custom filters to Twig.
+		// See https://twig.symfony.com/doc/3.x/advanced.html#filters for details.
 		$twig_filters = apply_filters( 'sprig/twig/filters', array() );
 		foreach ( $twig_filters as $name => $filter_callback ) {
 			if ( is_callable( $filter_callback ) ) {
@@ -57,8 +57,8 @@ class Sprig {
 			}
 		}
 
-		// Add custom functions to Twig
-		// See https://twig.symfony.com/doc/3.x/advanced.html#functions
+		// Add custom functions to Twig.
+		// See https://twig.symfony.com/doc/3.x/advanced.html#functions for details.
 		$twig_functions = apply_filters( 'sprig/twig/functions', array() );
 		foreach ( $twig_functions as $name => $function_callback ) {
 			if ( is_callable( $function_callback ) ) {
@@ -66,8 +66,8 @@ class Sprig {
 			}
 		}
 
-		// Modify Twig itself
-		// See https://twig.symfony.com/doc/3.x/advanced.html#extending-twig
+		// Modify Twig itself.
+		// See https://twig.symfony.com/doc/3.x/advanced.html#extending-twig for details.
 		static::$twig = apply_filters( 'sprig/twig', static::$twig );
 	}
 
@@ -232,6 +232,7 @@ class Sprig {
 	 * @param  array $data      Data to use when rendering the template.
 	 */
 	public static function out( $filenames = array(), $data = array() ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaping happens inside the Twig template.
 		echo static::render( $filenames, $data );
 	}
 
@@ -239,15 +240,16 @@ class Sprig {
 	 * Trigger an action and return the captured output buffer
 	 *
 	 * @param  string $action_name The name of the action to be executed.
-	 * @param  mixed  $arg          Additional arguments which are passed on to the functions hooked to the action.
+	 * @param  mixed  ...$args      Additional arguments which are passed on to the functions hooked to the action.
 	 * @return string              Output of the triggered action
 	 */
-	public static function do_action( $action_name = '', $arg = '' ) {
+	public static function do_action( $action_name = '', ...$args ) {
 		if ( empty( $action_name ) ) {
 			return;
 		}
 		ob_start();
-		call_user_func_array( 'do_action', func_get_args() );
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound -- Intentionally fires the caller's hook.
+		do_action( $action_name, ...$args );
 		return ob_get_clean();
 	}
 }

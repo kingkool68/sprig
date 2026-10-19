@@ -23,7 +23,16 @@
   ],
   "config": {
     "allow-plugins": {
-      "composer/installers": true
+      "composer/installers": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
+  },
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^3.4.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+  },
+  "scripts": {
+    "lint": "phpcs",
+    "lint:fix": "phpcbf"
   }
 }
