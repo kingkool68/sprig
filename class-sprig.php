@@ -117,10 +117,14 @@ class Sprig {
 		$filters['esc_url']             = 'esc_url';
 		$filters['esc_js']              = 'esc_js';
 		$filters['esc_textarea']        = 'esc_textarea';
+		$filters['esc_xml']             = 'esc_xml';
+		$filters['wp_kses']             = 'wp_kses';
+		$filters['wp_kses_data']        = 'wp_kses_data';
 		$filters['wp_kses_post']        = 'wp_kses_post';
 		$filters['tag_escape']          = 'tag_escape';
 		$filters['sanitize_email']      = 'sanitize_email';
 		$filters['sanitize_html_class'] = 'sanitize_html_class';
+		$filters['sanitize_title']      = 'sanitize_title';
 		$filters['antispambot']         = 'antispambot';
 		$filters['wptexturize']         = 'wptexturize';
 		$filters['absint']              = 'absint';
