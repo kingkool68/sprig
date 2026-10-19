@@ -66,6 +66,7 @@ Twig filters allow a string to be manipulated in a Twig template. Most of the de
  - [`esc_url`](https://developer.wordpress.org/reference/functions/esc_url/)
  - [`esc_js`](https://developer.wordpress.org/reference/functions/esc_js/)
  - [`esc_textarea`](https://developer.wordpress.org/reference/functions/esc_textarea/)
+ - [`wp_kses_post`](https://developer.wordpress.org/reference/functions/wp_kses_post/)
  - [`tag_escape`](https://developer.wordpress.org/reference/functions/tag_escape/)
  - [`sanitize_email`](https://developer.wordpress.org/reference/functions/sanitize_email/)
  - [`sanitize_html_class`](https://developer.wordpress.org/reference/functions/sanitize_html_class/)
