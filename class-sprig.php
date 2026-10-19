@@ -117,6 +117,7 @@ class Sprig {
 		$filters['esc_url']             = 'esc_url';
 		$filters['esc_js']              = 'esc_js';
 		$filters['esc_textarea']        = 'esc_textarea';
+		$filters['wp_kses_post']        = 'wp_kses_post';
 		$filters['tag_escape']          = 'tag_escape';
 		$filters['sanitize_email']      = 'sanitize_email';
 		$filters['sanitize_html_class'] = 'sanitize_html_class';
