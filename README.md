@@ -73,6 +73,7 @@ Twig filters allow a string to be manipulated in a Twig template. Most of the de
  - [`tag_escape`](https://developer.wordpress.org/reference/functions/tag_escape/)
  - [`sanitize_email`](https://developer.wordpress.org/reference/functions/sanitize_email/)
  - [`sanitize_html_class`](https://developer.wordpress.org/reference/functions/sanitize_html_class/)
+ - [`sanitize_title`](https://developer.wordpress.org/reference/functions/sanitize_title/)
  - [`antispambot`](https://developer.wordpress.org/reference/functions/antispambot/)
  - [`wptexturize`](https://developer.wordpress.org/reference/functions/wptexturize/)
  - [`absint`](https://developer.wordpress.org/reference/functions/absint/)
@@ -85,11 +86,11 @@ Filters that take extra arguments accept them in parentheses. For example, `wp_k
 
 Additional Twig filters can be added via the WordPress filter `sprig/twig/filters` and adding a callable function with a key to the array. This filter should be called before the `init` action so Twig filters can be set up properly in time.
 
-Example for adding the [`sanitize_title()`](https://developer.wordpress.org/reference/functions/sanitize_title/) function as a Twig filter:
+Example for adding the [`wpautop()`](https://developer.wordpress.org/reference/functions/wpautop/) function as a Twig filter:
 
 ```
 function filter_sprig_twig_filters( $filters = array() ) {
-	$filters['sanitize_title'] = 'sanitize_title';
+	$filters['wpautop'] = 'wpautop';
 	return $filters;
 }
 add_filter( 'sprig/twig/filters', 'filter_sprig_twig_filters' );

@@ -124,6 +124,7 @@ class Sprig {
 		$filters['tag_escape']          = 'tag_escape';
 		$filters['sanitize_email']      = 'sanitize_email';
 		$filters['sanitize_html_class'] = 'sanitize_html_class';
+		$filters['sanitize_title']      = 'sanitize_title';
 		$filters['antispambot']         = 'antispambot';
 		$filters['wptexturize']         = 'wptexturize';
 		$filters['absint']              = 'absint';
